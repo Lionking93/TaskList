@@ -1,28 +1,33 @@
 import React from 'react'
+import '../stylesheets/task.css'
 
-const Task = ({ task, handleDrop, category }) => {
+const Task = ({ task, handleDrop }) => {
     let taskContents = ""
 
     const dragStart = (event) => {
-        event.dataTransfer.setData('SrcTaskId', task.id)
+        event.dataTransfer.setData('text/plain', task.id)
         event.dataTransfer.effectAllowed = 'move'
         event.dataTransfer.setDragImage(event.target, 0, 0)
     }
 
+    const dragLeave = (event) => {
+        event.currentTarget.removeAttribute('drop-active')
+    }
+
     const dragOver = (event) => {
         event.preventDefault()
+        event.currentTarget.setAttribute('drop-active', true)
         event.dataTransfer.dropEffect = "move"
     }
 
     const dragDrop = (event) => {
+        event.currentTarget.removeAttribute('drop-active')
         handleDrop(event)
     }
 
-    if (task !== null) {
+    if (!task.id.toString().startsWith('null')) {
         taskContents =
-        <div>
-            <div id={`over_id_${task.id}`} onDragOver={dragOver} onDrop={dragDrop}>+</div>
-            <div id={task.id} draggable='true' onDragStart={dragStart}>
+            <div>
                 <div>
                     <b>Name:</b> {task.name}
                 </div>
@@ -36,17 +41,10 @@ const Task = ({ task, handleDrop, category }) => {
                     <b>Assigned to:</b> {task.assignedTo}
                 </div>
             </div>
-            <div id={`under_id_${task.id}`} onDragOver={dragOver} onDrop={dragDrop}>+</div>
-        </div>
-    } else {
-        taskContents = 
-        <div>
-            <div id={`empty_${category.name}`} onDragOver={dragOver} onDrop={dragDrop}>+</div>
-        </div>
     }
 
     return (
-        <td>
+        <td id={`${task.id}_${task.status}`} className='drop-over' draggable='true' onDragLeave={dragLeave} onDragOver={dragOver} onDrop={dragDrop} onDragStart={dragStart}>
             {taskContents}
         </td>
     )

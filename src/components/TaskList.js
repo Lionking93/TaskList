@@ -3,23 +3,27 @@ import { Table } from 'react-bootstrap'
 import Task from './Task'
 
 const TaskList = ({categories, tasks, handleDrop}) => {
+    const sortedTasks = tasks.sort((task1, task2) => task1.sortId - task2.sortId)
+
     const categoryHeaders = () => categories.map(category => <th key={category.id}>{category.name}</th>)
     const addTasksToCategories = () => {
         const tasksInCategories = {}
         
+        // Each task is stored in an array with object key category name
         categories.forEach(category => {
             tasksInCategories[category.name] = []
 
-            tasks.forEach(task => {
+            sortedTasks.forEach(task => {
                 if (task.status === category.name) {
                     tasksInCategories[category.name].push(task)
                 }
             })
         })
-        console.log(tasksInCategories)
+
         return tasksInCategories
     }
     
+    // Get the highest array length for object that contains tasks in arrays with category names as object keys
     const getNumOfTasksInCategoryWithMostTasks = (tasksInCategories) => {
         return Object.keys(tasksInCategories).reduce((currentMostTasks, currentCategory) => {
             return tasksInCategories[currentCategory].length > currentMostTasks 
@@ -40,15 +44,13 @@ const TaskList = ({categories, tasks, handleDrop}) => {
             categories.forEach(category => {
                 const task = i < tasksInCategories[category.name].length 
                     ? tasksInCategories[category.name][i]
-                    : null
+                    : { id: `null${category.id}`, status: category.name }
 
-                const taskId = task !== null
-                    ? task.id
-                    : `null_element_${category.id}`
+                const taskId = task.id
 
                 taskIds += taskId
 
-                taskRowElements.push(<Task handleDrop={handleDrop} key={taskId} task={task} category={category} />)
+                taskRowElements.push(<Task handleDrop={handleDrop} key={taskId} task={task} />)
             })
 
             taskRows.push(<tr key={taskIds}>{taskRowElements}</tr>)
@@ -58,7 +60,7 @@ const TaskList = ({categories, tasks, handleDrop}) => {
     }
 
     return (
-        <Table striped>
+        <Table variant='dark'>
             <thead>
                 <tr>
                     {categoryHeaders()}

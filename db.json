@@ -1,42 +1,45 @@
 {
-    "tasks": [
-        {
-            "id": 1,
-            "name": "Tiskaa",
-            "estimatedCompletionTime": 5,
-            "timeSpentOnCompletion": 7.5,
-            "assignedTo": "Kallonen Leo",
-            "status": "In Progress"
-        },
-        {
-            "id": 2,
-            "name": "Koodaa",
-            "estimatedCompletionTime": 3.5,
-            "timeSpentOnCompletion": 0,
-            "assignedTo": null,
-            "status": "Not Started"
-        },
-        {
-            "id": 3,
-            "name": "Lenkille",
-            "estimatedCompletionTime": 1,
-            "timeSpentOnCompletion": 0,
-            "assignedTo": "Kallonen Leo",
-            "status": "Not Started"
-        }
-    ],
-    "categories": [
-        {
-            "id": 1,
-            "name": "Not Started"
-        },
-        {
-            "id": 2,
-            "name": "In Progress"
-        },
-        {
-            "id": 3,
-            "name": "Completed"
-        }
-    ]
+  "tasks": [
+    {
+      "id": 1,
+      "name": "Tiskaa",
+      "estimatedCompletionTime": 5,
+      "timeSpentOnCompletion": 7.5,
+      "assignedTo": "Kallonen Leo",
+      "status": "In Progress",
+      "sortId": 3
+    },
+    {
+      "id": 2,
+      "name": "Koodaa",
+      "estimatedCompletionTime": 3.5,
+      "timeSpentOnCompletion": 0,
+      "assignedTo": null,
+      "status": "In Progress",
+      "sortId": 2
+    },
+    {
+      "id": 3,
+      "name": "Lenkille",
+      "estimatedCompletionTime": 1,
+      "timeSpentOnCompletion": 0,
+      "assignedTo": "Kallonen Leo",
+      "status": "Not Started",
+      "sortId": 1
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Not Started"
+    },
+    {
+      "id": 2,
+      "name": "In Progress"
+    },
+    {
+      "id": 3,
+      "name": "Completed"
+    }
+  ]
 }
